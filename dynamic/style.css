@@ -1,0 +1,39 @@
+@charset 'utf-8';
+* {
+  margin: 0px;
+  padding: 0px;
+}
+div {
+  float: left;
+  width: 33.3%;
+  cursor: pointer;
+  transition-duration: 0.5s;
+  transition-property: background, opacity, border-radius;
+}
+div:before {/*縦横比を保つ*/
+  content: '';
+  display: block;
+  padding-top: 100%;
+}
+div:nth-child(even) {
+  background: gray;
+}
+.○, .× {
+  border-radius: 50%;
+}
+.○ {
+  background: red !important;
+}
+.× {
+  background: blue !important;
+}
+.済 {
+  cursor: default;
+  pointer-events: none;
+}
+.勝 {
+  opacity: 1.0 !important;
+}
+.終 {
+  opacity: 0.2;
+}
