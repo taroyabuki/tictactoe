@@ -1,2 +1,3 @@
-* index.html: 負けないマルバツ
 * random.html: ランダムマルバツ
+* naive.html: ナイーブマルバツ
+* index.html: 負けないマルバツ

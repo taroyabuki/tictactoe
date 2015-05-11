@@ -16,14 +16,14 @@ function 画面を更新する() {
       筋に印を付ける(筋の配列[i], '勝');
     }
   }
-  if (盤面のスコア() !== null) {//あとかたづけ
+  if (盤面のスコアを返す() !== null) {//あとかたづけ
     $('div').addClass('終').removeClass('済').click(function() {
       window.location.reload();
     });
   }
 }
 
-function 盤面のスコア() {
+function 盤面のスコアを返す() {
   var i;
   for (i = 0; i < 筋の数; ++i) {
     var 結果 = そろったか(筋の配列[i]);
@@ -76,16 +76,18 @@ var COMが一手進める = function() {
 function 画面サイズを調整する() {
   var 横 = $(window).width();
   var 縦 = $(window).height();
-  if (横 <= 縦)
+  if (横 <= 縦) {
     $('body').css('width', 横 + 'px');
-  else
+  }
+  else {
     $('body').css('width', 縦 + 'px');
+  }
 }
 
 function 人が一手進める(位置) {
   盤面[位置] = 人;
   画面を更新する();
-  var スコア = 盤面のスコア();
+  var スコア = 盤面のスコアを返す();
   if (スコア === null) {//終わっていない
     COMが一手進める();
   }
