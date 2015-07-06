@@ -11,10 +11,10 @@ function クリックへの反応(位置) {
     盤面[位置] = -1;
   }
   console.log(盤面);
-  
+
   var 結果 = そろったか();
   console.log('そろった：' + 結果);
-  
+
   if (結果 == 1) {
     $('div').addClass('終');
     $('#セル0').addClass('勝');
