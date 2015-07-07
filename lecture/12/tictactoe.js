@@ -22,6 +22,9 @@ function 人が一手進める(位置) {
 }
 
 function COMが一手進める() {
+  if (盤面.indexOf(0) == -1) {
+    return;
+  }
   while (true) {
     var 位置 = Math.floor(Math.random() * セル数);
     if (盤面[位置] === 0) {//埋められるまで繰り返す
