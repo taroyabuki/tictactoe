@@ -1,5 +1,6 @@
 var クリック数 = 0;
 var 盤面 = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+var セル数 = 盤面.length;
 
 var 筋の配列 = [
   [0, 1, 2], [3, 4, 5], [6, 7, 8],
@@ -18,15 +19,35 @@ function 画面を更新する() {
 }
 
 function 人が一手進める(位置) {
-  クリック数++;
-  if (クリック数 % 2 == 1) {
+  盤面[位置] = 人;
+  if (人 == 1) {
     $('#セル' + 位置).addClass('○');
-    盤面[位置] = 1;
   } else {
     $('#セル' + 位置).addClass('×');
-    盤面[位置] = -1;
   }
-  console.log(盤面);
+  画面を更新する();
+  COMが一手進める();
+}
+
+function COMが一手進める() {
+  if (盤面.indexOf(0) === -1) {
+    return;
+  }
+  if ($('.終').length !== 0) {
+    return;
+  }
+  while (true) {
+    var 位置 = Math.floor(Math.random() * セル数);
+    if (盤面[位置] === 0) {//埋められるまで繰り返す
+      盤面[位置] = COM;
+      if (COM == 1) {
+        $('#セル' + 位置).addClass('○');
+      } else {
+        $('#セル' + 位置).addClass('×');
+      }
+      break;
+    }
+  }
   画面を更新する();
 }
 
@@ -48,3 +69,14 @@ function 筋に勝印を付ける(筋) {
   $('#セル' + 筋[1]).addClass('勝');
   $('#セル' + 筋[2]).addClass('勝');
 }
+
+var 人 = 1;//先手ということ
+var COM = -1;//後手ということ
+
+$(window.document).ready(function() {//初期設定
+  if (Math.random() < 0.5) {//50%の確率でCOMを先手にする
+    人 = -1;
+    COM = 1;
+    COMが一手進める();
+  }
+});

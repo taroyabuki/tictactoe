@@ -1,16 +1,28 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset='utf-8' />
-<title>繰り返し</title>
-</head>
-<body>
-</body>
-<script>
-var データ = ['風', '林', '火', '山'];
+  <head>
+    <meta charset='utf-8' />
+    <title>繰り返し</title>
+  </head>
+  <body>
+    <script>
+      for (var i = 0; i < 10; ++i) {
+        console.log('hello, world');
+      }
 
-for (var i = 0; i < データ.length; ++i) {
-  console.log(i + '番目は' + データ[i] + 'です。');
-}
-</script>
+      var sum = 0;
+      for (var i = 1; i <= 10; ++i) {
+        sum = sum + i;//sum += iでもよい
+      }
+      console.log(i);
+
+
+      var 配列 = [200, 300, 100, 500, 10];
+
+      console.log(配列.length);
+      for (var i = 0; i < 配列.length; ++i) {
+        console.log(配列[i]);
+      }
+    </script>
+  </body>
 </html>
