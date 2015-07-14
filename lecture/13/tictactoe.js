@@ -8,46 +8,64 @@ var 筋の配列 = [
   [0, 4, 8], [2, 4, 6]];
 var 筋の数 = 筋の配列.length;
 
+var 人 = 1;//先手
+var COM = -1;//後手
+var 終わった = false;//終わってない
+
+function 初期設定() {//50%の確率で先手後手を入れ替える
+  if (Math.random() < 0.5) {
+    人 = -1;
+    COM = 1;
+    COMが一手進める();
+  }  
+}
+
+//ページの準備ができたら実行する
+$(window.document).ready(初期設定);
+
 function 画面を更新する() {
   for (var i = 0; i < 筋の数; ++i) {
     var 結果 = そろったか(筋の配列[i]);
     if (結果 !== 0) {
       $('div').addClass('終');
       筋に勝印を付ける(筋の配列[i]);
+      終わった = true;
     }
   }
 }
 
 function 人が一手進める(位置) {
   盤面[位置] = 人;
-  if (人 == 1) {
+  if (人 == 1) {//先手なら
     $('#セル' + 位置).addClass('○');
-  } else {
+  } else {//後手なら
     $('#セル' + 位置).addClass('×');
   }
+  console.log(盤面);
   画面を更新する();
   COMが一手進める();
 }
 
 function COMが一手進める() {
-  if (盤面.indexOf(0) === -1) {
+  if (盤面.indexOf(0) == -1) {//空白がなかったら強制終了
     return;
   }
-  if ($('.終').length !== 0) {
+  if (終わった) {//終わってたら強制終了
     return;
   }
-  while (true) {
-    var 位置 = Math.floor(Math.random() * セル数);
-    if (盤面[位置] === 0) {//埋められるまで繰り返す
-      盤面[位置] = COM;
-      if (COM == 1) {
-        $('#セル' + 位置).addClass('○');
-      } else {
-        $('#セル' + 位置).addClass('×');
-      }
-      break;
-    }
+  var 位置 = Math.floor(Math.random() * 9);
+  if (盤面[位置] != 0) {//埋まっていたら
+    COMが一手進める();//やり直し
+    return;//ここで終わり。この先には進まない
   }
+  
+  盤面[位置] = COM;
+  if (COM == 1) {//先手なら
+    $('#セル' + 位置).addClass('○');
+  } else {//後手なら
+    $('#セル' + 位置).addClass('×');
+  }
+  console.log(盤面);
   画面を更新する();
 }
 
@@ -69,14 +87,3 @@ function 筋に勝印を付ける(筋) {
   $('#セル' + 筋[1]).addClass('勝');
   $('#セル' + 筋[2]).addClass('勝');
 }
-
-var 人 = 1;//先手ということ
-var COM = -1;//後手ということ
-
-$(window.document).ready(function() {//初期設定
-  if (Math.random() < 0.5) {//50%の確率でCOMを先手にする
-    人 = -1;
-    COM = 1;
-    COMが一手進める();
-  }
-});
