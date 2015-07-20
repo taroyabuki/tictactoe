@@ -56,13 +56,12 @@ function 筋に勝印を付ける(筋) {
 }
 
 function ランダム戦略で一手進める() {
-  while (true) {
-    var 位置 = Math.floor(Math.random() * セル数);
-    if (盤面[位置] === 0) {//埋められるまで繰り返す
-      盤面[位置] = COM;
-      break;
-    }
+  var 位置 = Math.floor(Math.random() * 9);
+  if (盤面[位置] !== 0) {//埋まっていたら
+    ランダム戦略で一手進める();//やり直し
+    return;//ここで終わり。この先には進まない
   }
+  盤面[位置] = COM;
 }
 
 var COMが一手進める = function() {
