@@ -62,6 +62,8 @@ console.log(配列.indexOf(5));
 var セル数 = 盤面.length;
 ```
 
+まずは`位置 = 盤面.indexOf(0);`を試すといい
+
 ```
 function COMが一手進める() {
   空白がないなら終了//引き分け

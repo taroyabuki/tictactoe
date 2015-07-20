@@ -10,7 +10,6 @@ var 筋の数 = 筋の配列.length;
 
 var 人 = 1;//先手
 var COM = -1;//後手
-var 終わった = false;//終わってない
 
 function 初期設定() {//50%の確率で先手後手を入れ替える
   if (Math.random() < 0.5) {
@@ -22,6 +21,19 @@ function 初期設定() {//50%の確率で先手後手を入れ替える
 
 //ページの準備ができたら実行する
 $(window.document).ready(初期設定);
+
+function 盤面のスコアを返す() {
+  for (var i = 0; i < 筋の数; ++i) {
+    var 結果 = そろったか(筋の配列[i]);
+    if (結果 !== 0) {
+      return 結果;//勝負が付いた
+    }
+  }
+  if (盤面.indexOf(0) !== -1) {
+    return null;//終わっていない
+  }
+  return 0;//引き分け
+}
 
 function 画面を更新する() {
   var i;
@@ -37,30 +49,25 @@ function 画面を更新する() {
     if (結果 !== 0) {
       $('div').addClass('終');
       筋に勝印を付ける(筋の配列[i]);
-      終わった = true;
     }
   }
 }
 
 function 人が一手進める(位置) {
   盤面[位置] = 人;
-  console.log(盤面);
   画面を更新する();
-  COMが一手進める();
+  var スコア = 盤面のスコアを返す();
+  if (スコア === null) {//終わっていない
+    COMが一手進める();
+  }
 }
 
 function COMが一手進める() {
-  if (盤面.indexOf(0) == -1) {//空白がなかったら強制終了
-    return;
-  }
-  if (終わった) {//終わってたら強制終了
-    return;
-  }
   COMの戦略();
-  console.log(盤面);
   画面を更新する();
 }
 
+//関数に変数としての名前を付ける
 var COMの戦略 = ランダム戦略で一手進める;
 
 function ランダム戦略で一手進める() {
