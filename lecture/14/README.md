@@ -91,6 +91,8 @@ function ランダム戦略で一手進める() {
 }
 ```
 
+# ナイーブマルバツ
+
 `index.html`を`random.html`にコピーする。
 
 `index.html`で`naive.js`を読み込む。
