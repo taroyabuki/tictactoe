@@ -1,3 +1,5 @@
+# マルバツ（JavaScript）
+
 * random.html: ランダムマルバツ
 * naive.html: ナイーブマルバツ
-* index.html: 負けないマルバツ
+* neverlose.html: 負けないマルバツ
